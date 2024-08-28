@@ -1,22 +1,23 @@
 "use strict";
 import readline from "readline";
-
+import { textBuffer, undoBuffer } from "./index.js";
 export function standardSetup() {
   // Standard program setup
   readline.emitKeypressEvents(process.stdin);
   if (process.stdin.isTTY) process.stdin.setRawMode(true);
 
-  // Terminal - clear current screen
+  // Terminal - reset settings to default
   process.stdout.write("\u001bc");
 
-  // ANSI - set inverse/reverse mode
-  process.stdout.write("\u001b[7m");
+  // ANSI - set cursor to home position
+  process.stdout.write("\u001b[H");
 }
 export function standardExit() {
-  //Terminal - clear current screen
+  //Terminal - reset settings to default
   process.stdout.write("\u001bc");
-  //ANSI - reset all styles
-  process.stdout.write("\u001b[0m");
+
+  console.log(textBuffer);
+  console.log(undoBuffer);
   process.exit(0);
 }
 
